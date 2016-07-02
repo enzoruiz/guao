@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block importCSS %}
+	<link href="{% static 'css/general/profile.css' %}" rel="stylesheet" type="text/css"/>
+{% endblock importCSS %}
+
+{% block body %}
+
+<div class="row profile">
+	<div class="col-md-3">
+		<div class="profile-sidebar">
+			<!-- SIDEBAR USERPIC -->
+			<div class="profile-userpic">
+				<img src="http://thesocialmediamonthly.com/wp-content/uploads/2015/08/photo.png" class="img-responsive" alt="">
+			</div>
+			<!-- END SIDEBAR USERPIC -->
+			<!-- SIDEBAR USER TITLE -->
+			<div class="profile-usertitle">
+				<div class="profile-usertitle-name">
+					{{ user.first_name }} {{ user.last_name }}
+				</div>
+				<div class="profile-usertitle-job">
+					Developer
+				</div>
+			</div>
+			<!-- END SIDEBAR USER TITLE -->
+			<!-- SIDEBAR MENU -->
+			<div class="profile-usermenu">
+				<ul class="nav">
+					<li class="active">
+						<a href="#">
+						<i class="glyphicon glyphicon-home"></i>
+						Mis Datos </a>
+					</li>
+				</ul>
+			</div>
+			<!-- END MENU -->
+		</div>
+	</div>
+	<div class="col-md-9">
+        <div class="profile-content">
+		   <div id="misdatos">
+		   		<form method="POST" action="{% url 'profile' %}">
+		   			{% csrf_token %}
+		   			<div class="form-group">
+		   				<label for="">Mi Telefono:</label>
+	                    <input type="text" name="telefono" id="telefono" class="form-control input-lg" placeholder="Telefono" tabindex="1" value="{{ telefono }}">
+	                </div>
+	                <div class="row">
+	                    <div class="col-xs-12 col-md-12">
+	                        <input type="submit" value="Guardar" class="btn btn-primary btn-block btn-lg" tabindex="2">
+	                    </div>
+	                </div>
+		   		</form>
+		   </div>
+        </div>
+	</div>
+</div>
+
+{% endblock body %}
+
+{% block importJS %}
+{% endblock importJS %}

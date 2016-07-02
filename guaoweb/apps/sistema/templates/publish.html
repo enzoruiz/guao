@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+<div class="row">
+	<div class="col-md-6">
+		<form action="{% url 'publish' %}" id="publishForm" method="POST" class="form-horizontal" enctype="multipart/form-data">
+			{% csrf_token %}
+			<div class="form-group">
+			    <label for="inputEmail3" class="col-sm-3 control-label">Nombre Mascota:</label>
+			    <div class="col-sm-9">
+			      	<input type="text" class="form-control" id="nombre_mascota" name="nombre_mascota" onkeyup="imagenYaSelecionada()" maxlength="32" value="{{ anuncio.nombre_mascota }}">
+			    </div>
+		  	</div>
+		  	<div class="form-group">
+			    <label for="inputEmail2" class="col-sm-3 control-label">Fecha que se perdio:</label>
+			    <div class="col-sm-4">
+			      	<div class='input-group date' id='datetimepicker1'>
+                        <input id="fecha_perdido" name="fecha_perdido" type='text' class="form-control" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+			    </div>
+		  	</div>
+			<div class="form-group">
+			    <label for="inputEmail3" class="col-sm-3 control-label">Especie:</label>
+			    <div class="col-sm-9">
+			      	<input type="text" class="form-control" id="especie" name="especie" maxlength="32" value="{{ anuncio.especie }}">
+			    </div>
+		  	</div>
+		  	<div class="form-group">
+			    <label for="inputEmail2" class="col-sm-3 control-label">Sexo:</label>
+			    <div class="col-sm-9">
+			      	<select name="sexo" id="sexo" class="form-control">
+			      		{% if anuncio.sexo == "1" %}
+							<option value="1" selected>Macho</option>
+							<option value="2">Hembra</option>
+		      			{% else %}
+		      				<option value="1">Macho</option>
+		      				<option value="2" selected>Hembra</option>
+		      			{% endif %}
+			      	</select>
+			    </div>
+		  	</div>
+			<div class="form-group">
+			    <label for="inputEmail3" class="col-sm-3 control-label">Raza:</label>
+			    <div class="col-sm-9">
+			      	<input type="text" class="form-control" id="raza" name="raza" maxlength="32" value="{{ anuncio.raza }}">
+			    </div>
+		  	</div>
+			<div class="form-group">
+			    <label for="inputEmail3" class="col-sm-3 control-label">Color:</label>
+			    <div class="col-sm-9">
+			      	<input type="text" class="form-control" id="color" name="color" maxlength="32" value="{{ anuncio.color }}">
+			    </div>
+		  	</div>
+		  	<div class="form-group">
+			    <label for="inputEmail2" class="col-sm-3 control-label">Imagen:</label>
+			    <div class="col-sm-9">
+			      	<input type='file' id="imagen" name="imagen" onchange="imagenNoSeleccionada()"/>
+			    </div>
+		  	</div>
+			<div class="form-group">
+			    <label for="inputEmail3" class="col-sm-3 control-label">Ultimo lugar donde fue visto:</label>
+			    <div class="col-sm-9">
+			      	<input type="text" class="form-control" id="ultimo_lugar" name="ultimo_lugar" maxlength="50" value="{{ anuncio.ultimo_lugar }}">
+			    </div>
+		  	</div>
+		  	<div class="form-group">
+			    <label for="inputEmail3" class="col-sm-3 control-label">Mas Informacion:</label>
+			    <div class="col-sm-9">
+			      	<textarea name="mas_informacion" style="resize:none;" id="mas_informacion" cols="30" rows="6" class="form-control">{{ anuncio.mas_informacion }}</textarea>
+			    </div>
+		  	</div>
+		  	<div class="form-group">
+			    <div class="col-sm-offset-3 col-sm-10">
+			    	<input type="hidden" id="anuncio_id" name="anuncio_id" value="{{ anuncio.id }}">
+			      	<input type="submit" value="Publicar" class="btn btn-fresh">
+			    </div>
+		  	</div>
+		</form>
+	</div>
+	<div class="col-md-6">
+		<div class="hover-module" id="moduleid">
+			{% if anuncio %}
+				<img id="preimagen" src="../../{{ anuncio.imagen.url }}" class="img-responsive" style="width: 500px; height: 100%;" alt="" />
+			{% else %}
+				<img id="preimagen" src="#" class="img-responsive" style="width: 500px; height: 100%;" alt="" />
+			{% endif %}
+		</div>
+	</div>
+</div>
+
+{% endblock body %}
+
+{% block importJS %}
+	<script src="{% static 'js/general/previsualizar-imagen.js' %}" type="text/javascript"></script>
+	<script src="{% static 'js/validacion/publicaranuncio.js' %}" type="text/javascript"></script>
+
+	<script>
+		{% if anuncio %}
+			imagenNoSeleccionada();
+		{% endif %}
+
+		function imagenYaSelecionada(){
+			if($("#preimagen").attr("src") != "#"){
+				if(typeof $("#idhovernombre").val() == "undefined" || $("#idhovernombre").val() == null){
+					var html = "<hovernombrefood id='idhovernombre'>" + $("#nombre_mascota").val().toUpperCase() + "</hovernombrefood>";
+					$("#moduleid").append(html);
+				}
+				else{
+					$("#idhovernombre").html($("#nombre_mascota").val().toUpperCase());
+				}
+			}
+		}
+
+		function imagenNoSeleccionada(){
+			if($("#nombre_mascota").val() != ""){
+				if(typeof $("#idhovernombre").val() == "undefined" || $("#idhovernombre").val() == null){
+					var html = "<hovernombrefood id='idhovernombre'>" + $("#nombre_mascota").val().toUpperCase() + "</hovernombrefood>";
+					$("#moduleid").append(html);
+					
+				}
+				else{
+					$("#idhovernombre").html($("#nombre_mascota").val().toUpperCase());
+				}
+			}
+		}
+
+		$(function () {
+            $('#datetimepicker1').datetimepicker({
+                locale: 'es',
+                format: 'DD/MM/YYYY',
+                defaultDate: new Date(),
+                maxDate: new Date()
+            });
+        });
+	</script>
+
+{% endblock importJS %}
