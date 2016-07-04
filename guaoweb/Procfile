@@ -1,1 +1,1 @@
-web: gunicorn guaoweb.wsgi:application --log-file=-
+web: gunicorn guaoweb.wsgi --log-file -
