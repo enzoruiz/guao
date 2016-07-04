@@ -72,6 +72,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'guaoweb.wsgi.application'
 
+
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
@@ -85,10 +86,6 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-
-import dj_database_url
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
 
 
 # Internationalization
@@ -112,15 +109,8 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'static'), ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 MEDIA_URL = 'media/'
 
 LOGIN_URL = 'login'
-
-# Simplified static file serving.
-# https://warehouse.python.org/project/whitenoise/
-
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
