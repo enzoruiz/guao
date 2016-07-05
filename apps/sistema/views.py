@@ -30,17 +30,16 @@ class PublishView(TemplateView):
 				return redirect('publish')
 		else:
 			# EDICION
-			pass
-			# pro = get_object_or_404(Producto, pk=request.POST.get('product_id'))
-			# try:
-			# 	pro.imagen = request.FILES['imagen']
-			# except Exception:
-			# 	pass
-			# form = ProductForm(request.POST or None, request.FILES, instance=pro)
+			anu = get_object_or_404(Anuncio, pk=request.POST.get('anuncio_id'))
+			try:
+				anu.imagen = request.FILES['imagen']
+			except Exception:
+				pass
+			form = AnuncioForm(request.POST or None, request.FILES, instance=anu)
 			
-			# if form.is_valid():
-			# 	form.save()
-			# 	return redirect('publish')
-			# else:
-			# 	print(form.errors)
-			# 	return redirect('publish')
+			if form.is_valid():
+				form.save()
+				return redirect('publish')
+			else:
+				print(form.errors)
+				return redirect('publish')
