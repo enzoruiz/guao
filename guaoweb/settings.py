@@ -90,10 +90,10 @@ WSGI_APPLICATION = 'guaoweb.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dbsb4kkn15cgm8',
-        'USER': 'cvpsjfwtgrbilo',
-        'PASSWORD': 'TXOrckwpAuKhcKgyQ3thUNydGN',
-        'HOST': 'ec2-54-243-126-40.compute-1.amazonaws.com',
+        'NAME': 'dci3j620vfqf15',
+        'USER': 'cnjztbscsxjiyv',
+        'PASSWORD': 'P6jEaAy8Y_baYC5C1I3oR2rGjv',
+        'HOST': 'ec2-54-243-52-209.compute-1.amazonaws.com',
         'PORT': '5432',
     }
 }
