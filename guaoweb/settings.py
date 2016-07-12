@@ -104,7 +104,8 @@ DATABASES = {
 
 LANGUAGE_CODE = 'es'
 
-TIME_ZONE = 'America/Lima'
+# TIME_ZONE = 'America/Lima'
+TIME_ZONE = None
 
 USE_I18N = True
 
